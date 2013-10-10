@@ -1,0 +1,90 @@
+{% extends "base.html" %}
+
+{% block header %}
+	<link rel="stylesheet" type="text/css" href="static/rankings.css">
+  <script src="/static/rankings.js"></script>
+
+	<script type="text/javascript">
+	  $(function() {
+	    new PollListViewModel({
+	      ui: $("#polls-table"),
+        votingUI: $("#votingModal"),
+	    }).init({{ polls|tojson|safe }});
+	  });
+	</script>
+{% endblock %}
+
+{% block container_title %}
+	<h1> Rankings </h1>
+{% endblock %}
+
+{% block container %}
+
+	<table id="polls-table">
+    <thead>
+      <tr>
+      	<th> votos </th>
+      	<th> Título </th>
+        <th> Pergunta </th>
+      	<th> líderes </th>
+      	<th> -- </th>
+      </tr>
+    </thead>
+    <tbody data-bind="foreach: polls">
+      <tr>
+          <td data-bind="text: numberOfVotes, click: function() { newDispute($parent.votingViewModel); }"
+              data-toggle="modal" href="#votingModal" class="clickable"> </td>
+          <td data-bind="text: title, click: function() { newDispute($parent.votingViewModel); }"
+              data-toggle="modal" href="#votingModal" class="clickable"> </td>
+          <td data-bind="text: question, click: function() { newDispute($parent.votingViewModel); }"
+              data-toggle="modal" href="#votingModal" class="clickable"> </td>
+          <td class="poll-leaders clickable" data-bind="click: function() { newDispute($parent.votingViewModel); }"
+              data-toggle="modal" href="#votingModal">
+            <div data-bind="foreach: leaders">
+              <img data-bind="attr: {src: image_url}"></img>
+            </div>
+         	</td>
+
+          <td> <a data-bind="attr: {href: editUrl}">  Adicionar Items </a> </td>
+      </tr>
+    </tbody>
+  </table>
+
+<!-- Modal -->
+  <div class="modal fade" id="votingModal">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+          <h4 class="modal-title">Modal title</h4>
+        </div>
+        <div class="modal-body">
+          <div class="clearfix">
+            <div class="pull-left vote-option">
+              <div>
+                <img data-bind="attr: {src: options()[0].image_url}"></img>
+              </div>
+              <div>
+                <span data-bind="text: options()[0].name"></span>
+              </div>
+            </div>
+            <div class="pull-right vote-option">
+              <div>
+                <img data-bind="attr: {src: options()[1].image_url}"></img>
+              </div>
+              <div>
+                <span data-bind="text: options()[1].name"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer clear">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+          <button type="button" class="btn btn-primary">Save changes</button>
+        </div>
+      </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+  </div>
+<!-- /.modal -->
+
+{% endblock %}

@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+{% block header %}
+	<script src="/static/new-poll.js"></script>
+	<script type="text/javascript">
+	  $(function() {
+	    new NewPollViewModel({
+	      ui: $("#polls-table"),
+	      createRankingEndpoint: "{{ url_for('.create_poll') }}"
+	    }).init();
+	  });
+	</script>
+{% endblock %}
+
+{% block container_title %}
+	<h1> Crie seu Ranking </h1>
+{% endblock %}
+
+{% block container %}
+
+	<div>
+		<form role="form" data-bind="submit: createRanking">
+			<div class="form-group">
+				<label for="title"> Título </label>
+				<input type="text" class="form-control" data-bind="value: title" placeholder="título do ranking" required>
+			</div>
+			<div class="form-group">
+				<label for="title"> Pergunta </label>
+				<input type="text" class="form-control" data-bind="value: question" placeholder="insira a pergunta de seu ranking" required>
+			</div>
+			<div class="form-group">
+				<label for="title"> Opção 1 </label>
+				<input type="text" class="form-control" data-bind="value: option1name" placeholder="escolha um nome para a opção" required>
+				<input type="text" class="form-control" data-bind="value: option1url" placeholder="url da primeira imagem" required>
+				<div class="preview-image" style="width: 50px; height:50px;">
+					<img data-bind="attr: {src: option1url}" style="width: 50px; height:50px;"></img>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="title"> Opção 2 </label>
+				<input type="text" class="form-control" data-bind="value: option2name" placeholder="escolha um nome para a opção" required>
+				<input type="text" class="form-control" data-bind="value: option2url" placeholder="url da segunda imagem" required>
+				<div class="preview-image" style="width: 50px; height:50px;">
+					<img data-bind="attr: {src: option2url}" style="width: 50px; height:50px;"></img>
+				</div>
+			</div>
+			<button type="submit" class="btn btn-primary"> Criar </button>
+		</form>
+	</div>
+
+{% endblock %}

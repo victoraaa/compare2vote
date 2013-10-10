@@ -1,0 +1,46 @@
+<html>
+	<head>
+		<script src="/static/knockout-2.3.0.js"></script>
+		<script src="/static/jquery.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="/static/bootstrap/css/bootstrap.css">
+		<script src="/static/bootstrap/js/bootstrap.min.js"></script>
+
+		<link rel="stylesheet" type="text/css" href="/static/base.css">
+		<script src="/static/base.js"></script>
+		{% block header %}
+
+		{% endblock %}
+	</head>
+	<body>
+		<nav class="navbar navbar-default" role="navigation">
+		  <!-- Brand and toggle get grouped for better mobile display -->
+		  <div class="navbar-header">
+		    <a class="navbar-brand" href="{{ url_for('.home') }}">Compare2Vote</a>
+		  </div>
+
+		  <!-- Collect the nav links, forms, and other content for toggling -->
+		  <div class="collapse navbar-collapse navbar-ex1-collapse">
+		    <ul class="nav navbar-nav">
+		      <li><a href="{{ url_for('.home') }}">Rankings</a></li>
+		      <li><a href="{{ url_for('.create') }}">Criar</a></li>
+		    </ul>
+		    
+		  </div><!-- /.navbar-collapse -->
+		</nav>
+		
+		<div class='container box-container'>
+			<div class='container-title'>
+				{% block container_title %}
+
+				{% endblock %}
+			</div>
+			<div class='container container-body'>
+				{% block container %}
+
+				{% endblock %}
+			</div>
+
+		</div>
+	</body>
+</html>
