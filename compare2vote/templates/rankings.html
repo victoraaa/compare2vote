@@ -60,20 +60,18 @@
         </div>
         <div class="modal-body">
           <div class="clearfix">
-            <div class="pull-left vote-option">
-              <div>
-                <img data-bind="attr: {src: options()[0].image_url}"></img>
+            <div id="options-container">
+              <div class="vote-option pull-left">
+                <a href="#" data-bind="click: function() { vote(options()[0].name, options()[1].name); }">
+                  <img data-bind="attr: {src: options()[0].image_url}">
+                  <div data-bind="text: options()[0].name">Caption 1</div>
+                </a>
               </div>
-              <div>
-                <span data-bind="text: options()[0].name"></span>
-              </div>
-            </div>
-            <div class="pull-right vote-option">
-              <div>
-                <img data-bind="attr: {src: options()[1].image_url}"></img>
-              </div>
-              <div>
-                <span data-bind="text: options()[1].name"></span>
+              <div class="vote-option pull-right">
+                <a href="#" data-bind="click: function() { vote(options()[1].name, options()[0].name); }">
+                  <img data-bind="attr: {src: options()[1].image_url}">
+                  <div data-bind="text: options()[1].name">Caption 2</div>
+                </a>
               </div>
             </div>
           </div>

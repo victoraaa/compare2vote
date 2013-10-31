@@ -10,9 +10,11 @@ class VitinhoModel():
 	def to_mongo_json(self):
 		res = {}
 		for key, value in self.__dict__.iteritems():
-			if hasattr(value, "to_json"):
+			print key, value
+			if hasattr(value, "to_mongo_json"):
 				res[key] = value.to_mongo_json()
 			elif isinstance(value, list):
+				print value
 				res[key] = [
 					val.to_mongo_json() if hasattr(val, "__dict__") else val
 					for val in value
@@ -55,6 +57,11 @@ class Poll(VitinhoModel):
 			raise Exception("One may not add a option with the same name as an existing option.")
 		self.options.append(option)
 
+	def get_option_by_name(self, name):
+		try:
+			return next(option for option in self.options if option.name == name)
+		except StopIteration:
+			raise KeyError("No option with name {}".format(name))
 
 	def vote(self, winner, loser):
 		self.votes.append(_PollVote(winner, loser))
@@ -78,8 +85,11 @@ class Poll(VitinhoModel):
 		new_poll = Poll(json["title"], json["question"])
 		for poll_option in json["options"]:
 			new_poll.add_option(PollOption(poll_option["name"], poll_option["image_url"]))
-		for vote in json["votes"]:
-			new_poll.vote(vote)
+		for json_vote in json["votes"]:
+			new_poll.vote(
+				new_poll.get_option_by_name(json_vote["winner"]["name"]),
+				new_poll.get_option_by_name(json_vote["loser"]["name"])
+			)
 		if "_id" in json:
 			new_poll._id = json["_id"]
 		return new_poll

@@ -18,3 +18,7 @@ def get_two_random_and_different_options(poll_id):
 	poll = repository.get_poll_by_id(poll_id)
 	return random.sample(poll.options, 2)
 
+def compute_vote(poll_id, winner_name, loser_name):
+	poll = repository.get_poll_by_id(poll_id)
+	poll.vote(poll.get_option_by_name(winner_name), poll.get_option_by_name(loser_name))
+	repository.insert_poll(poll)

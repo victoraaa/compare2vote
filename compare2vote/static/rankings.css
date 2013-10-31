@@ -32,3 +32,14 @@
 	margin-left: 50px;
 	margin-right: 50px;
 }
+
+#options-container{
+    text-align:center;
+    margin:50px auto;
+}
+#options-container a{
+    margin:0px 20px;
+    display:inline-block;
+    text-decoration:none;
+    color:black;
+}

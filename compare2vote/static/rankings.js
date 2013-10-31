@@ -31,11 +31,11 @@
         newDispute: function(votingView) {
             this.getOptions(function(json) {
                 options = json.responseJSON;
-                console.log(options);
                 votingView.options(options);
-                votingView.voteUrl(this.voteUrl);
-                votingView.nextDispute(this.newDispute.bind(this));
-                console.log(votingView.options()[1].name);
+                votingView.voteUrl(this.voteUrl());
+                votingView.nextDispute(function () {
+                    this.newDispute(votingView);
+                }.bind(this));
             }.bind(this));
         },
 
@@ -61,7 +61,6 @@
             $.ajax({
                 url: this.voteUrl(),
                 type: "POST",
-                dataType: 'json',
                 data: {json: JSON.stringify({winner: winnerName, loser: loserName})},
                 traditional: true,
                 success: this.nextDispute(),
@@ -75,6 +74,6 @@
 
     ChoiceViewModel.prototype = {
         
-    }
+    };
 
 }) ();

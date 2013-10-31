@@ -25,10 +25,11 @@ As for the project:
 
 I've done a bunch of stuff, but there's still a good bit to do: 
 
-Voting does not happen yet, both the client and server sides need to be done.
-Rankings do not have passwords yet.
-The algorithm to craete the ranking of a poll is pretty stupid right now.
-I haven't written the base test class nor any tests, so just skip tests for now.
+Must: Rankings do not have passwords yet.
+Must: The algorithm to craete the ranking of a poll is pretty stupid right now.
+Must: Still need to add a page that shows the complete ranking of a poll.
+Could: Make the main page refresh the number of votes and the mini-ranking as we vote.
+Must:I haven't written the base test class nor any tests, so just skip tests for now.
 
 You guys can do whatever u want.
 

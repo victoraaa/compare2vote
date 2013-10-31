@@ -70,7 +70,6 @@ def voting_options(poll_id):
 def vote(poll_id):
     data = json.loads(request.values.get("json"))
     poll_service.compute_vote(poll_id, data["winner"], data["loser"])
-    #SHOULD NOT BE OK! SHOULD RETURN A NEW DISPUTE
     return "ok"
 
 
