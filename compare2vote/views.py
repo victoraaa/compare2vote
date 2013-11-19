@@ -72,6 +72,10 @@ def vote(poll_id):
     poll_service.compute_vote(poll_id, data["winner"], data["loser"])
     return "ok"
 
+@app.route('/poll/<poll_id>', methods=["GET"])
+def poll_options(poll_id):
+    poll = repository.get_poll_by_id(poll_id)
+    return render_template('poll.html', poll=_poll_viewmodel(poll))
 
 def _poll_viewmodel(poll):
     return {
@@ -79,9 +83,11 @@ def _poll_viewmodel(poll):
         "question": poll.question,
         "number_of_votes": len(poll.votes),
         "leaders": [_option_viewmodel(option) for option in poll.ranking[:3]],
+        "options": [_option_viewmodel(option) for option in poll.ranking[:]],
         "votingOptionsUrl": flask.url_for('.voting_options', poll_id=str(poll._id)),
         "editUrl": flask.url_for('.edit_poll', poll_id=str(poll._id)),
         "voteUrl": flask.url_for('.vote', poll_id=str(poll._id)),
+        "rankUrl": flask.url_for('.poll_options', poll_id=str(poll._id)),
         "_id": str(poll._id)
     }
 

@@ -69,15 +69,21 @@ class Poll(VitinhoModel):
 
 	@property
 	def ranking(self):
-		def calculate_points(poll_option):
-			return sum(vote.winner.name == poll_option.name for vote in self.votes)
-
 		points = {
-			poll_option.name: calculate_points(poll_option)
+			poll_option.name: 1400
 			for poll_option in self.options
 		}
-
-		ranking = sorted(self.options, lambda x, y: points[x.name] - points[y.name], reverse=True)
+		K = 32
+		for vote in self.votes:
+			Ra = points[vote.winner.name]
+			Rb = points[vote.loser.name]
+			Ea = 1/(1+10**((Rb-Ra)/400))
+			Eb = 1/(1+10**((Ra-Rb)/400))
+			Ra = Ra + K*(1 - Ea)
+			Rb = Rb + K*(0 - Eb)
+			points[vote.winner.name] = Ra
+			points[vote.loser.name] = Rb
+		ranking = sorted(self.options, lambda x, y: int(points[x.name]) - int(points[y.name]), reverse=True)
 		return ranking
 
 	@classmethod

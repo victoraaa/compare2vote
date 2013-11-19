@@ -19,13 +19,12 @@
     var PollViewModel = function(poll){
         this.title = ko.observable(poll.title);
         this.question = ko.observable(poll.question);
-        this.options = ko.observableArray();
+        this.options = ko.observableArray(poll.options);
         this.numberOfVotes = ko.observable(poll.number_of_votes);
         this.leaders = ko.observableArray(poll.leaders);
         this.editUrl = ko.observable(poll.editUrl);
         this.votingOptionsUrl = ko.observable(poll.votingOptionsUrl);
         this.voteUrl = ko.observable(poll.voteUrl);
-        this.rankUrl = ko.observable(poll.rankUrl);
     };
 
     PollViewModel.prototype = {

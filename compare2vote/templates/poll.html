@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+
+{% block header %}
+	<link rel="stylesheet" type="text/css" href="static/poll.css">
+  <script src="/static/poll.js"></script>
+
+	<script type="text/javascript">
+	  $(function() {
+	    new PollListViewModel({
+	      ui: $("#polls-table"),
+        votingUI: $("#votingModal"),
+	    }).init({{ poll|tojson|safe }});
+	  });
+	</script>
+{% endblock %}
+
+{% block container_title %}
+	<h1> {{ poll.title }}</h1>
+  <h2> {{ poll.question }}</h2>
+{% endblock %}
+
+{% block container %}
+	<table id="polls-table">
+    <thead>
+      <tr>
+      	<th width="50%"> Nome</th>
+        <th width="50%"> Imagem</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for option in poll.options %}
+            <tr>
+      <td text-align="center">{{option.name}}</td>
+      <td class ="poll-options"><img src="{{option.image_url}}" width="50px" height="50px"></td>
+      </tr>
+    {% endfor %}
+
+    </tbody>
+  </table>
+{% endblock %}
