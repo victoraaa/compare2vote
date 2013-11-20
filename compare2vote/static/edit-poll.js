@@ -19,7 +19,7 @@
         },
 
         addOption: function() {
-            if (this.password() != this.correctPassword() && this.correctPassword()){
+            if (this.correctPassword() && this.password() != this.correctPassword()){
                 alert("password incorreto!");
                 return;
             }

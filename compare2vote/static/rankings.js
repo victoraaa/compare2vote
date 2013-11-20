@@ -7,6 +7,9 @@
 
     PollListViewModel.prototype = {
         init: function(polls) {
+            polls.sort(function(a, b) {
+                return b.number_of_votes - a.number_of_votes;
+            });
             polls.forEach(function (poll) {
                 this.polls.push(new PollViewModel(poll));
             }.bind(this));
