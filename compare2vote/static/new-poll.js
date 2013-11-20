@@ -8,7 +8,7 @@
         this.option1url = ko.observable();
         this.option2name = ko.observable();
         this.option2url = ko.observable();
-        this.password = ko.observable();
+        this.password = ko.observable("");
     };
 
     NewPollViewModel.prototype = {

@@ -1,63 +1,7 @@
 {% extends "base.html" %}
 
 {% block header %}
-	<link rel="stylesheet" type="text/css" href="static/pool.css">
-  <style>
-#polls-table {
-  width: 100%;
-  margin-top: 10px;
-  margin-bottom: 10px;
-}
-
-#polls-table thead{
-  background-color: rgb(230, 230, 230);
-}
-
-#polls-table td, th{
-  padding: 10px;
-  text-align: center;
-}
-
-#polls-table tbody tr:nth-child(even) {
-  background-color: rgb(245, 245, 245);
-}
-
-.poll-leaders img {
-  width: 50px;
-  height: 50px;
-}
-
-.clickable {
-  cursor: pointer;
-}
-
-.vote-option img {
-  width: 100px;
-  height: 100px;
-  margin-left: 50px;
-  margin-right: 50px;
-}
-
-#options-container{
-    text-align:center;
-    margin:50px auto;
-}
-#options-container a{
-    margin:0px 20px;
-    display:inline-block;
-    text-decoration:none;
-    color:black;
-}
-  </style>
-  <script src="/static/poll.js"></script>
-	<script type="text/javascript">
-	  $(function() {
-	    new PollListViewModel({
-	      ui: $("#polls-table"),
-        votingUI: $("#votingModal"),
-	    }).init({{ poll|tojson|safe }});
-	  });
-	</script>
+	<link rel="stylesheet" type="text/css" href="/static/poll.css">
 {% endblock %}
 
 {% block container_title %}
@@ -77,12 +21,12 @@
     </thead>
     <tbody>
       {% for option in poll.options %}
-            <tr>
-              <td>{{loop.index}}</td>
-      <td text-align="center">{{option.name}}</td>
-      <td class ="poll-options"><img src="{{option.image_url}}" width="100px" height="100px"></td>
-      <td class ="poll-options">{{option.points}}</td>
-      </tr>
+        <tr>
+          <td>{{loop.index}}</td>
+          <td text-align="center">{{option.name}}</td>
+          <td class ="poll-options"><img src="{{option.image_url}}" width="100px" height="100px"></td>
+          <td class ="poll-options">{{option.points}}</td>
+        </tr>
     {% endfor %}
 
     </tbody>

@@ -19,9 +19,8 @@
         },
 
         addOption: function() {
-            if (this.password() != this.correctPassword()){
+            if (this.password() != this.correctPassword() && this.correctPassword()){
                 alert("password incorreto!");
-                alert(this.correctPassword());
                 return;
             }
             $.ajax({

@@ -32,6 +32,7 @@
         newDispute: function(votingView) {
             this.getOptions(function(json) {
                 options = json.responseJSON;
+                votingView.question(this.question());
                 votingView.options(options);
                 votingView.voteUrl(this.voteUrl());
                 votingView.nextDispute(function () {
@@ -55,6 +56,7 @@
         this.options = ko.observableArray([{name: "", image_url: ""}, {name: "", image_url: ""}]);
         this.nextDispute = ko.observable();
         this.voteUrl = ko.observable();
+        this.question = ko.observable();
     };
 
     VotingViewModel.prototype = {

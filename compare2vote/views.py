@@ -40,7 +40,7 @@ def create_poll():
             poll_models.PollOption(option["name"], option["image_url"])
             for option in data["options"]
         ],
-        data["password"]
+        data.get("password", "")
     )
     return flask.url_for('.edit_poll', poll_id=str(poll._id))
 
