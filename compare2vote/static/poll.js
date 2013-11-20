@@ -49,31 +49,4 @@
             });
         },
     };
-
-    var VotingViewModel = function() {
-        this.options = ko.observableArray([{name: "", image_url: ""}, {name: "", image_url: ""}]);
-        this.nextDispute = ko.observable();
-        this.voteUrl = ko.observable();
-    };
-
-    VotingViewModel.prototype = {
-        vote: function(winnerName, loserName) {
-            $.ajax({
-                url: this.voteUrl(),
-                type: "POST",
-                data: {json: JSON.stringify({winner: winnerName, loser: loserName})},
-                traditional: true,
-                success: this.nextDispute(),
-            });
-        },
-    };
-
-    var ChoiceViewModel = function(choice) {
-
-    };
-
-    ChoiceViewModel.prototype = {
-        
-    };
-
 }) ();
