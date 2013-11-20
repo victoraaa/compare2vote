@@ -2,8 +2,6 @@ from __future__ import division
 
 import collections
 
-from bson.objectid import ObjectId
-
 
 class VitinhoModel():
 
