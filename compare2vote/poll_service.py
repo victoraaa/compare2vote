@@ -4,10 +4,9 @@ import poll_models, repository
 
 def create_poll_with_options(title, question, options, password):
 	new_poll = poll_models.Poll(title, question)
+	new_poll.add_password(password)
 	for choice in options:
 		new_poll.add_option(choice)
-	if (password!=None):
-		new_poll.add_password(password)
 	new_poll = repository.insert_poll(new_poll)
 	return new_poll
 

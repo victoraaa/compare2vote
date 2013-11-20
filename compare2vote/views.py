@@ -39,7 +39,8 @@ def create_poll():
         [
             poll_models.PollOption(option["name"], option["image_url"])
             for option in data["options"]
-        ]
+        ],
+        data["password"]
     )
     return flask.url_for('.edit_poll', poll_id=str(poll._id))
 
@@ -88,7 +89,8 @@ def _poll_viewmodel(poll):
         "editUrl": flask.url_for('.edit_poll', poll_id=str(poll._id)),
         "voteUrl": flask.url_for('.vote', poll_id=str(poll._id)),
         "rankUrl": flask.url_for('.poll_options', poll_id=str(poll._id)),
-        "_id": str(poll._id)
+        "_id": str(poll._id),
+        "password": poll.password
     }
 
 def _option_viewmodel(option):

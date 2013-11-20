@@ -110,6 +110,7 @@ class Poll(VitinhoModel):
 			)
 		if "_id" in json:
 			new_poll._id = json["_id"]
+		new_poll.add_password(json["password"] or "")
 		return new_poll
 
 

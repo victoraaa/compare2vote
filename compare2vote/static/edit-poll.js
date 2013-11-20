@@ -6,16 +6,24 @@
         this.question = ko.observable();
         this.newOptionName = ko.observable();
         this.newOptionUrl = ko.observable();
+        this.correctPassword = ko.observable();
+        this.password = ko.observable();
     };
 
     EditPollViewModel.prototype = {
         init: function(poll) {
             this.title(poll.title);
             this.question(poll.question);
+            this.correctPassword(poll.password);
             ko.applyBindings(this, this.ui.get(0));
         },
 
         addOption: function() {
+            if (this.password() != this.correctPassword()){
+                alert("password incorreto!");
+                alert(this.correctPassword());
+                return;
+            }
             $.ajax({
                 url: this.addOptionEndpoint,
                 type: "POST",
