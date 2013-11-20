@@ -1,5 +1,9 @@
+from __future__ import division
+
 import collections
+
 from bson.objectid import ObjectId
+
 
 class VitinhoModel():
 
@@ -33,7 +37,7 @@ class PollOption(VitinhoModel):
 		VitinhoModel.__init__(self)
 		self.name = name
 		self.image_url = image_url
-
+		self.points = 0
 
 class _PollVote(VitinhoModel):
 
@@ -50,12 +54,16 @@ class Poll(VitinhoModel):
 		self.question = question
 		self.options = []
 		self.votes = []
+		self.password = ""
 
 
 	def add_option(self, option):
 		if any(existing_option.name == option.name for existing_option in self.options):
 			raise Exception("One may not add a option with the same name as an existing option.")
 		self.options.append(option)
+
+	def add_password(self, password):
+		self.password=password
 
 	def get_option_by_name(self, name):
 		try:
@@ -83,7 +91,13 @@ class Poll(VitinhoModel):
 			Rb = Rb + K*(0 - Eb)
 			points[vote.winner.name] = Ra
 			points[vote.loser.name] = Rb
-		ranking = sorted(self.options, lambda x, y: int(points[x.name]) - int(points[y.name]), reverse=True)
+
+		for option in self.options:
+			option.points = int(points[option.name])
+
+		ranking = sorted(self.options, lambda x, y: int(points[x.name]) - int(points[y.name]),\
+		 reverse=True)
+
 		return ranking
 
 	@classmethod

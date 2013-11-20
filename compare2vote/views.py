@@ -94,5 +94,6 @@ def _poll_viewmodel(poll):
 def _option_viewmodel(option):
     return {
         "name": option.name,
-        "image_url": option.image_url
+        "image_url": option.image_url,
+        "points" : option.points
     }
